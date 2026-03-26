@@ -53,11 +53,13 @@ pidc-dashboard/
 │   └── admin/page.tsx      ← S5 owns this
 │
 ├── src/components/layout/
-│   ├── Sidebar.tsx         ← S1 owns this
-│   └── Topbar.tsx          ← S1 (optional, add later)
+│   └── Sidebar.tsx         ← S1 owns this
 │
 ├── src/lib/
 │   └── supabase.ts         ← S3 owns this
+│
+├── public/
+│   └── PIDC-Logo.png       ← Logo image for login page
 │
 ├── supabase/
 │   └── schema.sql          ← S3 runs this in Supabase dashboard
@@ -65,9 +67,11 @@ pidc-dashboard/
 ├── backend/
 │   ├── main.py             ← S4 owns this
 │   ├── requirements.txt    ← S4 owns this
-│   └── .env.example        ← S4 fills in their copy
+│   ├── .env.example        ← S4 fills in their copy
+│   └── .venv/              ← Python virtual environment (created by you)
 │
 ├── .env.local.example      ← S3 fills in for everyone
+├── .gitignore              ← Already configured (DO NOT DELETE - protects secrets)
 ├── tailwind.config.js      ← Already configured
 ├── package.json            ← Already configured
 └── tsconfig.json           ← Already configured
@@ -97,6 +101,15 @@ Before anything, make sure you have these installed on your computer.
   - "Tailwind CSS IntelliSense" (autocomplete for CSS classes)
   - "ES7+ React/Redux/React-Native snippets" (shortcuts for React code)
   - "Prettier" (auto-formats your code)
+
+**Important - .gitignore:**
+Make sure the `.gitignore` file is included in the project. It should contain entries for:
+- `node_modules/` - npm packages
+- `.next/` - Next.js build output
+- `backend/.venv/` - Python virtual environment
+- `backend/__pycache__/` - Python cache
+- `.env.local` - Your local environment variables with API keys
+- `.vscode/` - IDE settings
 
 ---
 
@@ -181,14 +194,17 @@ Open http://localhost:3000 → you should see the login page.
 cd backend
 
 # Create a virtual environment (a private Python folder for this project)
-python -m venv venv
+# Using .venv (with dot) makes it a hidden folder
+python -m venv .venv
 
 # Activate it:
-source venv/bin/activate        # Mac / Linux
-venv\Scripts\activate           # Windows (use backslash)
+source .venv/bin/activate        # Mac / Linux
+.venv\Scripts\activate           # Windows (use backslash)
 
 # Install packages
 pip install -r requirements.txt
+# Note: If you encounter version conflicts (especially on Python 3.14+),
+# install with version ranges: pip install "fastapi>=0.100,<1.0" "pandas>=2.0,<4.0" etc.
 
 # Copy the env file
 cp .env.example .env
@@ -331,8 +347,8 @@ The Excel file structure doesn't match what the code expects.
 Your virtual environment isn't activated.
 ```bash
 cd backend
-source venv/bin/activate       # Mac/Linux
-venv\Scripts\activate          # Windows
+source .venv/bin/activate       # Mac/Linux
+.venv\Scripts\activate          # Windows
 pip install -r requirements.txt
 ```
 
@@ -454,17 +470,21 @@ All colors are already in `tailwind.config.js` — use these class names:
 | Main text | `text-text-primary` |
 | Subtle text | `text-text-secondary` |
 | Disabled / placeholder | `text-text-muted` |
-| Primary button | `bg-primary text-bg-base` |
+| Primary button | `bg-primary text-white` |
 | Success badge | `bg-success/10 text-success` |
 | Warning badge | `bg-warning/10 text-warning` |
 | Error badge | `bg-error/10 text-error` |
 | Card border | `border border-border-default` |
 
+**Primary color:** Navy blue `#2C3879` (matching the PIDC logo)
+
 **Rules:**
 1. No gradients — use solid colors with opacity (e.g. `bg-primary/10`)
-2. No shadows or glow effects — keep it flat
+2. No shadows or glow effects — keep it flat (except on login page)
 3. Buttons always have `cursor-pointer`
 4. Inputs always have `focus:outline-none focus:border-primary`
+
+**Login page:** Features the PIDC logo image at the top, centered "Sign in" heading, and subtle background glow effect in the primary color.
 
 ---
 
@@ -478,6 +498,7 @@ S1 - Frontend:
 [ ] Ran `npm install`
 [ ] Created .env.local from the example
 [ ] Ran `npm run dev` and saw the login page at localhost:3000
+[ ] Verified .gitignore is present (protects node_modules, .next, .venv)
 
 S2 - Upload Feature:
 [ ] Cloned the repo
@@ -493,7 +514,8 @@ S3 - Supabase:
 [ ] Shared .env.local values with the team
 
 S4 - FastAPI:
-[ ] Created Python virtual environment
+[ ] Created Python virtual environment (`python -m venv .venv`)
+[ ] Activated the venv (`source .venv/bin/activate`)
 [ ] Ran `pip install -r requirements.txt`
 [ ] Copied .env.example to .env and filled in keys
 [ ] Ran `uvicorn main:app --reload --port 8000`

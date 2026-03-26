@@ -13,9 +13,9 @@ module.exports = {
         'bg-surface':   '#111111',   // Card / sidebar background
         'bg-elevated':  '#1A1A1A',   // Elevated elements
         'bg-overlay':   '#222222',   // Overlays / modals
-        'primary':      '#A3B018',   // Olive/lime green CTA
-        'primary-hover':'#B8C41E',
-        'primary-muted':'#7D8A12',
+        'primary':      '#2C3879',   // Navy blue - matching PIDC logo
+        'primary-hover':'#3A4A9A',
+        'primary-muted':'#1E2A5E',
         'text-primary': '#FFFFFF',
         'text-secondary':'#888888',
         'text-muted':   '#555555',

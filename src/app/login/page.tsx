@@ -56,21 +56,31 @@ export default function LoginPage() {
 
   // ─── UI ──────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-bg-base flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-bg-base flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      
+      <div className="w-full max-w-md relative">
 
         {/* Logo / header */}
         <div className="text-center mb-8">
-          <div className="inline-block bg-primary rounded-lg p-3 mb-4">
-            <span className="text-bg-base font-bold text-xl">PIDC</span>
+          <div className="relative inline-block">
+            <img 
+              src="/PIDC-Logo.png" 
+              alt="PIDC Logo" 
+              className="h-24 mx-auto mb-4 object-contain"
+            />
+            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
           </div>
           <h1 className="text-2xl font-bold text-text-primary">Statistics Portal</h1>
           <p className="text-text-secondary mt-1 text-sm">Pakistan Industrial Development Corporation</p>
         </div>
 
         {/* Card */}
-        <div className="bg-bg-surface border border-border-default rounded-xl p-8">
-          <h2 className="text-lg font-semibold text-text-primary mb-6">Sign in to your account</h2>
+        <div className="bg-bg-surface border border-border-default rounded-2xl p-8 shadow-2xl shadow-black/50">
+          <h2 className="text-xl font-semibold text-text-primary mb-6 text-center">Sign in</h2>
 
           {/* Error message */}
           {error && (
@@ -92,9 +102,9 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@pidc.gov.pk"
-                className="w-full bg-bg-elevated border border-border-default rounded-lg px-4 py-2.5
+                className="w-full bg-bg-elevated border border-border-default rounded-lg px-4 py-3
                            text-text-primary placeholder-text-muted text-sm
-                           focus:outline-none focus:border-primary transition-colors"
+                           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
               />
             </div>
 
@@ -109,9 +119,9 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
-                className="w-full bg-bg-elevated border border-border-default rounded-lg px-4 py-2.5
+                className="w-full bg-bg-elevated border border-border-default rounded-lg px-4 py-3
                            text-text-primary placeholder-text-muted text-sm
-                           focus:outline-none focus:border-primary transition-colors"
+                           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
               />
             </div>
 
@@ -120,8 +130,8 @@ export default function LoginPage() {
               type="submit"
               disabled={loading}
               className="w-full bg-primary hover:bg-primary-hover disabled:opacity-50
-                         text-bg-base font-semibold rounded-lg py-2.5 text-sm
-                         transition-colors cursor-pointer mt-2"
+                         text-white font-semibold rounded-lg py-3 text-sm
+                         transition-colors cursor-pointer mt-4"
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
