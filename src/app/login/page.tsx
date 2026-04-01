@@ -56,35 +56,27 @@ export default function LoginPage() {
 
   // ─── UI ──────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-bg-base flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      
-      <div className="w-full max-w-md relative">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
 
         {/* Logo / header */}
         <div className="text-center mb-8">
-          <div className="relative inline-block">
-            <img 
-              src="/PIDC-Logo.png" 
-              alt="PIDC Logo" 
-              className="h-24 mx-auto mb-4 object-contain"
-            />
-            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-          </div>
-          <h1 className="text-2xl font-bold text-text-primary">Statistics Portal</h1>
-          <p className="text-text-secondary mt-1 text-sm">Pakistan Industrial Development Corporation</p>
+          <img 
+            src="/PIDC-Logo.png" 
+            alt="PIDC Logo" 
+            className="h-24 mx-auto mb-4 object-contain"
+          />
+          <h1 className="text-2xl font-bold text-gray-900">Statistics Portal</h1>
+          <p className="text-gray-600 mt-1 text-sm">Pakistan Industrial Development Corporation</p>
         </div>
 
         {/* Card */}
-        <div className="bg-bg-surface border border-border-default rounded-2xl p-8 shadow-2xl shadow-black/50">
-          <h2 className="text-xl font-semibold text-text-primary mb-6 text-center">Sign in</h2>
+        <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">Sign in</h2>
 
           {/* Error message */}
           {error && (
-            <div className="bg-error/10 border border-error/30 text-error rounded-lg px-4 py-3 mb-4 text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg px-4 py-3 mb-4 text-sm">
               {error}
             </div>
           )}
@@ -93,7 +85,7 @@ export default function LoginPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm text-text-secondary mb-1.5">
+              <label className="block text-sm text-gray-700 mb-1.5">
                 Email address
               </label>
               <input
@@ -102,15 +94,15 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@pidc.gov.pk"
-                className="w-full bg-bg-elevated border border-border-default rounded-lg px-4 py-3
-                           text-text-primary placeholder-text-muted text-sm
-                           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+                className="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3
+                           text-gray-900 placeholder-gray-400 text-sm
+                           focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm text-text-secondary mb-1.5">
+              <label className="block text-sm text-gray-700 mb-1.5">
                 Password
               </label>
               <input
@@ -119,9 +111,9 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
-                className="w-full bg-bg-elevated border border-border-default rounded-lg px-4 py-3
-                           text-text-primary placeholder-text-muted text-sm
-                           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+                className="w-full bg-gray-50 border border-gray-300 rounded-lg px-4 py-3
+                           text-gray-900 placeholder-gray-400 text-sm
+                           focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all"
               />
             </div>
 
@@ -129,7 +121,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary hover:bg-primary-hover disabled:opacity-50
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50
                          text-white font-semibold rounded-lg py-3 text-sm
                          transition-colors cursor-pointer mt-4"
             >
@@ -139,7 +131,7 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-text-muted text-xs mt-6">
+        <p className="text-center text-gray-500 text-xs mt-6">
           Contact your administrator to get access.
         </p>
       </div>
