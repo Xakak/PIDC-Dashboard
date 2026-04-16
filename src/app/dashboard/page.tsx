@@ -1,74 +1,82 @@
-// src/app/dashboard/page.tsx
-// The main dashboard overview page.
-// Shows submission stats fetched from Supabase.
+'use client'
 
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import Sidebar from '@/components/layout/Sidebar'
-import { supabase } from '@/lib/supabase'
 
-export default async function DashboardPage() {
-  // ─── Fetch stats from the database ──────────────────────────────────────
-  // These are simple counts — no complex logic yet.
-
-  const { count: totalUploads } = await supabase
-    .from('uploads')
-    .select('*', { count: 'exact', head: true })
-
-  const { count: pendingUploads } = await supabase
-    .from('uploads')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'pending')
-
-  const { count: approvedUploads } = await supabase
-    .from('uploads')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'approved')
-
-  // ─── UI ──────────────────────────────────────────────────────────────────
+export default function DashboardPage() {
   return (
-    <div className="flex min-h-screen bg-bg-base">
+    <div className="flex min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
+      {/* Background watermark image */}
+      <div className="fixed inset-0 pointer-events-none select-none">
+        <Image
+          src="/kcip.png"
+          alt=""
+          fill
+          className="object-cover opacity-60"
+        />
+      </div>
+      
       <Sidebar />
+      
+      <main className="flex-1 flex flex-col items-center justify-center p-8 relative">
+        {/* Glassmorphism card */}
+        <motion.div
 
-      <main className="flex-1 p-8">
-        <h1 className="text-2xl font-bold text-text-primary mb-2">Dashboard</h1>
-        <p className="text-text-secondary text-sm mb-8">Overview of all entity submissions</p>
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="bg-white/70 backdrop-blur-md border border-white/50 
+                     shadow-xl rounded-2xl p-12 text-center max-w-2xl"
+        >
+          {/* Logo */}
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className="relative w-40 h-40 mx-auto mb-8"
+          >
+            <Image
+              src="/PIDC-Logo.png"
+              alt="PIDC Logo"
+              fill
+              className="object-contain"
+            />
+          </motion.div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <KpiCard label="Total Submissions" value={totalUploads ?? 0} />
-          <KpiCard label="Pending Review"    value={pendingUploads ?? 0} color="warning" />
-          <KpiCard label="Approved"          value={approvedUploads ?? 0} color="success" />
-        </div>
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            className="text-3xl md:text-4xl font-bold text-gray-900 max-w-2xl"
+          >
+            Pakistan Industrial Development Corporation
+          </motion.h1>
 
-        {/* Placeholder for charts — add Recharts here in Week 5 */}
-        <div className="bg-bg-surface border border-border-default rounded-xl p-6">
-          <p className="text-text-secondary text-sm">
-            📊 Charts will appear here once real data is uploaded. (Week 5)
-          </p>
-        </div>
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-lg text-gray-500 mt-4"
+          >
+            Statistics Portal
+          </motion.p>
+        </motion.div>
+
+        {/* Animated indicator dots */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0.3, 0.8, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-12 flex gap-2"
+        >
+          <div className="w-2 h-2 rounded-full bg-blue-600" />
+          <div className="w-2 h-2 rounded-full bg-blue-600" />
+          <div className="w-2 h-2 rounded-full bg-blue-600" />
+        </motion.div>
       </main>
-    </div>
-  )
-}
-
-// ─── Small reusable KPI card component ──────────────────────────────────────
-function KpiCard({
-  label,
-  value,
-  color = 'primary',
-}: {
-  label: string
-  value: number
-  color?: 'primary' | 'warning' | 'success'
-}) {
-  const colorMap = {
-    primary: 'text-primary',
-    warning: 'text-warning',
-    success: 'text-success',
-  }
-  return (
-    <div className="bg-bg-surface border border-border-default rounded-xl p-6">
-      <p className="text-text-secondary text-sm mb-2">{label}</p>
-      <p className={`text-4xl font-bold font-mono ${colorMap[color]}`}>{value}</p>
     </div>
   )
 }
